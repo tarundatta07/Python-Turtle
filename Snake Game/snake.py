@@ -8,7 +8,6 @@ LEFT = 180
 RIGHT = 0
 
 
-
 class Snake:
 
     def __init__(self):
@@ -19,13 +18,22 @@ class Snake:
     # # =============== CREATING SNAKE ===================#
     def creating_snake(self):
         for position in SNAKE_STARING_POSITION:
-            single_block = Turtle(shape='square')
-            single_block.color('white')
-            single_block.penup()
-            single_block.goto(position)
-            self.combine_blocks.append(single_block)
+            self.add_segment(position)
 
-    # =============== MOVING SNAKE ===================#
+    # =========================== ADD SEGMENT =====================================#
+    def add_segment(self, position):
+        single_block = Turtle(shape='square')
+        single_block.color('white')
+        single_block.penup()
+        single_block.goto(position)
+        self.combine_blocks.append(single_block)
+
+    # =========================== EXTEND SNAKE =====================================#
+
+    def extend_snake(self):
+        self.add_segment(self.combine_blocks[-1].position())
+
+    # ========================= MOVING SNAKE ====================================#
     def move_snake(self):
         for segment_num in range(len(self.combine_blocks) - 1, 0, -1):
             new_x_coordinate = self.combine_blocks[segment_num - 1].xcor()
