@@ -10,49 +10,57 @@ RIGHT = 0
 
 class Snake:
 
-    def __init__(self):
-        self.combine_blocks = []
-        self.creating_snake()
-        self.head = self.combine_blocks[0]
+	def __init__(self):
+		self.combine_blocks = []
+		self.creating_snake()
+		self.head = self.combine_blocks[0]
 
-    # # =============== CREATING SNAKE ===================#
-    def creating_snake(self):
-        for position in SNAKE_STARING_POSITION:
-            self.add_segment(position)
+	# # =============== CREATING SNAKE ===================#
+	def creating_snake(self):
+		for position in SNAKE_STARING_POSITION:
+			self.add_segment(position)
 
-    # =========================== ADD SEGMENT =====================================#
-    def add_segment(self, position):
-        single_block = Turtle(shape='square')
-        single_block.color('white')
-        single_block.penup()
-        single_block.goto(position)
-        self.combine_blocks.append(single_block)
+	# =========================== ADD SEGMENT =====================================#
+	def snake_reset(self):
+		for seg in self.combine_blocks:
+			seg.goto(1500, 1500)
+		self.combine_blocks.clear()
+		self.creating_snake()
+		self.head = self.combine_blocks[0]
 
-    # =========================== EXTEND SNAKE =====================================#
+	# =========================== ADD SEGMENT =====================================#
+	def add_segment(self, position):
+		single_block = Turtle(shape='square')
+		single_block.color('white')
+		single_block.penup()
+		single_block.goto(position)
+		self.combine_blocks.append(single_block)
 
-    def extend_snake(self):
-        self.add_segment(self.combine_blocks[-1].position())
+	# =========================== EXTEND SNAKE =====================================#
 
-    # ========================= MOVING SNAKE ====================================#
-    def move_snake(self):
-        for segment_num in range(len(self.combine_blocks) - 1, 0, -1):
-            new_x_coordinate = self.combine_blocks[segment_num - 1].xcor()
-            new_y_coordinate = self.combine_blocks[segment_num - 1].ycor()
-            self.combine_blocks[segment_num].goto(new_x_coordinate, new_y_coordinate)
-        self.head.forward(SNAKE_MOVE_DISTANCE)
+	def extend_snake(self):
+		self.add_segment(self.combine_blocks[-1].position())
 
-    def up(self):
-        if self.head.heading() != DOWN:
-            self.head.setheading(UP)
+	# ========================= MOVING SNAKE ====================================#
+	def move_snake(self):
+		for segment_num in range(len(self.combine_blocks) - 1, 0, -1):
+			new_x_coordinate = self.combine_blocks[segment_num - 1].xcor()
+			new_y_coordinate = self.combine_blocks[segment_num - 1].ycor()
+			self.combine_blocks[segment_num].goto(new_x_coordinate, new_y_coordinate)
+		self.head.forward(SNAKE_MOVE_DISTANCE)
 
-    def down(self):
-        if self.head.heading() != UP:
-            self.head.setheading(DOWN)
+	def up(self):
+		if self.head.heading() != DOWN:
+			self.head.setheading(UP)
 
-    def left(self):
-        if self.head.heading() != RIGHT:
-            self.head.setheading(LEFT)
+	def down(self):
+		if self.head.heading() != UP:
+			self.head.setheading(DOWN)
 
-    def right(self):
-        if self.head.heading() != LEFT:
-            self.head.setheading(RIGHT)
+	def left(self):
+		if self.head.heading() != RIGHT:
+			self.head.setheading(LEFT)
+
+	def right(self):
+		if self.head.heading() != LEFT:
+			self.head.setheading(RIGHT)
